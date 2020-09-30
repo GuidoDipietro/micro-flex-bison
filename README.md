@@ -1,7 +1,7 @@
 # Implementación de un compilador simple del lenguaje "MICRO"
 <hr>
 
-## Definición informal
+### Definición informal
 
 - El único tipo de dato es entero.
 - Todos los identificadores son declarados implícitamente y con una longitud máxima de
@@ -19,60 +19,75 @@ permitidos.
 - Cada sentencia termina con un "punto y coma" (`;`).
 - El cuerpo de un programa está delimitado por `inicio` y `fin`. - `inicio`, `fin`, `leer` y `escribir` son palabras reservadas y deben escribirse en minúscula.
 
-## Gramática léxica
+## Gramática
+
+La gramática léxica y sintáctica del lenguaje Micro es muy simple, a continuación su definición en BNF.  
+
+Representamos los terminales de un solo símbolo entre comillas simples, y aquellos que sean cadenas, entre comillas dobles.  
+En el caso de `<letra>` y `<digito>` optamos por una abreviación para simplificar la expresión.
+
+### Gramática léxica
 
 ```ebnf
-<token> -> uno de  
-	<identificador> <constante> <palabraReservada> <operadorAditivo> <asignacion> <caracterPuntuacion>
+<token> :=
+		<identificador>
+	| 	<constante>
+	|	<palabraReservada>
+	|	<operadorAditivo>
+	|	<asignacion>
+	|	<caracterPuntuacion>
 
-<identificador> ->
+<identificador> :=
 	<letra> {<letra o digito>}
 
-<constante> ->
+<constante> :=
 	<digito> {digito>}
 
-<letra o digito> -> uno de
-	<letra> <digito>
+<letra o digito> :=
+	<letra> | <digito>
 
-<letra> -> una de a-z A-Z
+<letra> := una de
+	a-z A-Z
 
-<digito> -> uno de 0-9
+<digito> := uno de
+	0-9
 
-<palabraReservada> -> una de
-	inicio fin leer escribir
+<palabraReservada> :=
+	"inicio" | "fin" | "leer" | "escribir"
 
-<operadorAditivo> -> uno de
-	+ -
+<operadorAditivo> :=
+	'+' | '-'
 
-<asignacion> -> :=
+<asignacion> :=
+	':='
 
-<caracterPuntuacion> -> uno de
-	( ) , ;
+<caracterPuntuacion> :=
+	'(' | ')' | ',' | ';'
 ```
 
 ### Gramática sintáctica
 
 ```ebnf
-<programa> ->
-	inicio <listaSentencias> fin
+<programa> :=
+	"inicio" <listaSentencias> "fin"
 
-<listaSentencias> ->
+<listaSentencias> :=
 	<sentencia> {<sentencia>}
 
-<sentencia> ->
-		<identificador> := <expresion> ;
-	| 	leer ( <listaIdentificadores> ) ;
-	|	escribir ( <listaExpresiones> ) ;
+<sentencia> :=
+		<identificador> ':=' <expresion> ';'
+	| 	"leer" ( <listaIdentificadores> ) ';'
+	|	"escribir" ( <listaExpresiones> ) ';'
 
-<listaIdentificadores> ->
-	<identificador> {, <identificador>}
+<listaIdentificadores> :=
+	<identificador> {',' <identificador>}
 
-<listaExpresiones> ->
-	<expresion> {, <expresion>}
+<listaExpresiones> :=
+	<expresion> {',' <expresion>}
 
-<expresiom> ->
+<expresiom> :=
 	<primaria> {<operadorAditivo> <primaria>}
 
-<primaria> ->
+<primaria> :=
 	<identificador> | <constante> | ( <expresion> )
 ```

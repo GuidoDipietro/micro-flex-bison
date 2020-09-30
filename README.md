@@ -1,4 +1,7 @@
 # Implementación de un compilador simple del lenguaje "MICRO"
+
+![Consigna original](https://www.campusvirtual.frba.utn.edu.ar/especialidad/pluginfile.php/279745/mod_resource/content/1/COMPILACION%20PARTE%201.pdf)
+
 <hr>
 
 ### Definición informal
@@ -129,3 +132,9 @@ El lenguaje Micro cuenta con 13 Tokens:
 | `';'`                    | PC         |
 | `'+'`                    | SUMA       |
 | `'-'`                    | RESTA      |
+
+## Tabla de símbolos
+
+En el caso de Micro, la TS contendrá los identificadores.  
+Cada entrada tendrá como único atributo su valor asignado en caso de tenerlo, o `NULL` en caso contrario.
+

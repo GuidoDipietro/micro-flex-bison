@@ -121,19 +121,19 @@ El lenguaje Micro cuenta con 13 Tokens:
 
 | ER                       | Token      |
 |--------------------------|------------|
-| `"[0-9]+"`               | CONSTANTE  |
-| `"[a-zA-Z][a-zA-Z0-9]*"` | ID         |
+| `[0-9]+`                 | CONSTANTE  |
+| `[a-zA-Z][a-zA-Z0-9]*`   | ID         |
 | `"inicio"`               | INICIO     |
 | `"fin"`                  | FIN        |
 | `"leer"`                 | LEER       |
 | `"escribir"`             | ESCRIBIR   |
 | `":="`                   | ASIGNACION |
-| `'('`                    | PARENIZQ   |
-| `')'`                    | PARENDER   |
-| `','`                    | COMA       |
-| `';'`                    | PC         |
-| `'+'`                    | MAS        |
-| `'-'`                    | MENOS      |
+| `\(`                     | PARENIZQ   |
+| `\)`                     | PARENDER   |
+| `,`                      | COMA       |
+| `;`                      | PC         |
+| `\+`                     | MAS        |
+| `-`                      | MENOS      |
 
 ## Tabla de símbolos
 

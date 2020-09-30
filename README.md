@@ -121,7 +121,7 @@ El lenguaje Micro cuenta con 13 Tokens:
 
 | ER                       | Token      |
 |--------------------------|------------|
-| `"[0-9][1-9]*"`          | CONSTANTE  |
+| `"[0-9]+"`               | CONSTANTE  |
 | `"[a-zA-Z][a-zA-Z0-9]*"` | ID         |
 | `"inicio"`               | INICIO     |
 | `"fin"`                  | FIN        |
@@ -132,11 +132,22 @@ El lenguaje Micro cuenta con 13 Tokens:
 | `')'`                    | PARENDER   |
 | `','`                    | COMA       |
 | `';'`                    | PC         |
-| `'+'`                    | SUMA       |
-| `'-'`                    | RESTA      |
+| `'+'`                    | MAS        |
+| `'-'`                    | MENOS      |
 
 ## Tabla de símbolos
 
 En el caso de Micro, la TS contendrá los identificadores.  
 Cada entrada tendrá como único atributo su valor asignado en caso de tenerlo, o `NULL` en caso contrario.
 
+## Compilar
+
+Doble click en el batchfile `compilar.bat` o ejecutar esto:
+
+```
+flex micro.l
+bison -yd micro.y
+gcc lex.yy.c y.tab.c -o micro
+```
+
+Los archivos `lex.yy.c, y.tab.c, y.tab.h` que están subidos son los de la última compilación hecha.

@@ -21,7 +21,7 @@ permitidos.
 
 ## Gramática léxica
 
-```abnf
+```ebnf
 <token> -> uno de  
 	<identificador> <constante> <palabraReservada> <operadorAditivo> <asignacion> <caracterPuntuacion>
 

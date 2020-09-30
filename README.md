@@ -49,3 +49,30 @@ permitidos.
 <caracterPuntuacion> -> uno de
 	( ) , ;
 ```
+
+### Gramática sintáctica
+
+```ebnf
+<programa> ->
+	inicio <listaSentencias> fin
+
+<listaSentencias> ->
+	<sentencia> {<sentencia>}
+
+<sentencia> ->
+		<identificador> := <expresion> ;
+	| 	leer ( <listaIdentificadores> ) ;
+	|	escribir ( <listaExpresiones> ) ;
+
+<listaIdentificadores> ->
+	<identificador> {, <identificador>}
+
+<listaExpresiones> ->
+	<expresion> {, <expresion>}
+
+<expresiom> ->
+	<primaria> {<operadorAditivo> <primaria>}
+
+<primaria> ->
+	<identificador> | <constante> | ( <expresion> )
+```

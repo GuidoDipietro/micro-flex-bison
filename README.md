@@ -54,6 +54,9 @@ En el caso de `<letra>` y `<digito>` optamos por una abreviación para simplific
 <digito> := uno de
 	0-9
 
+<palabraReservada> :=
+	<inicio> | <fin> | <leer> | <escribir>
+
 <inicio> := "inicio"
 <fin> := "fin"
 <leer> := "leer"
@@ -64,6 +67,9 @@ En el caso de `<letra>` y `<digito>` optamos por una abreviación para simplific
 
 <asignacion> :=
 	":="
+
+<caracterPuntuacion> :=
+	<parenizq> | <parender> | <coma> | <pc>
 
 <parenizq> := '('
 <parender> := ')'
@@ -105,3 +111,21 @@ En el caso de `<letra>` y `<digito>` optamos por una abreviación para simplific
 ```
 
 ## Tokens
+
+El lenguaje Micro cuenta con 13 Tokens:
+
+| ER                       | Token      |
+|--------------------------|------------|
+| `"[0-9][1-9]*"`          | CONSTANTE  |
+| `"[a-zA-Z][a-zA-Z0-9]*"` | ID         |
+| `"inicio"`               | INICIO     |
+| `"fin"`                  | FIN        |
+| `"leer"`                 | LEER       |
+| `"escribir"`             | ESCRIBIR   |
+| `":="`                   | ASIGNACION |
+| `'('`                    | PARENIZQ   |
+| `')'`                    | PARENDER   |
+| `','`                    | COMA       |
+| `';'`                    | PC         |
+| `'+'`                    | SUMA       |
+| `'-'`                    | RESTA      |

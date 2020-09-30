@@ -23,29 +23,29 @@ permitidos.
 
 ```html
 <token> -> uno de  
-	<identificador> <constante> <palabraReservada> <operadorAditivo> <asignación> <carácterPuntuación>
+	<identificador> <constante> <palabraReservada> <operadorAditivo> <asignacion> <caracterPuntuacion>
 
 <identificador> ->
-	<letra> {<letra o dígito>}
+	<letra> {<letra o digito>}
 
 <constante> ->
-	<dígito> {dígito>}
+	<digito> {digito>}
 
-<letra o dígito> -> uno de
-	<letra> <dígito>
+<letra o digito> -> uno de
+	<letra> <digito>
 
 <letra> -> una de a-z A-Z
 
-<dígito> -> uno de 0-9
+<digito> -> uno de 0-9
 
 <palabraReservada> -> una de
 	inicio fin leer escribir
 
 <operadorAditivo> -> uno de
 	+ -
-	
-<asignación> -> :=
 
-<carácterPuntuación> -> uno de
+<asignacion> -> :=
+
+<caracterPuntuacion> -> uno de
 	( ) , ;
 ```

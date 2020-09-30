@@ -90,7 +90,7 @@ En el caso de `<letra>` y `<digito>` optamos por una abreviación para simplific
 <sentencia> :=
 		<identificador> <asignacion> <expresion> <pc>
 	| 	<leer> <parenizq> <listaIdentificadores> <parender> <pc>
-	|	<escribir> <parenizq> <listaExpresiones> <parender> <pc>
+	|	<escribir> <parenizq> <listaExpresiones> <parender> <pc> //esto no tiene mucho sentido
 
 <listaIdentificadores> :=
 		<identificador>
@@ -109,6 +109,11 @@ En el caso de `<letra>` y `<digito>` optamos por una abreviación para simplific
 	|	<constante>
 	|	<parenizq> <expresion> <parender>
 ```
+
+Entendemos que las funciones `leer` y `escribir` funcionan de la siguiente manera:
+
+- `leer(lista de IDs)` imprime en pantalla el valor de cada identificador (inventado, en el documento no lo dice)
+- `escribir()` ???????????
 
 ## Tokens
 

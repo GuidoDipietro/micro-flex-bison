@@ -1,6 +1,6 @@
 # Implementación de un compilador simple del lenguaje "MICRO"
 
-![Consigna original](https://www.campusvirtual.frba.utn.edu.ar/especialidad/pluginfile.php/279745/mod_resource/content/1/COMPILACION%20PARTE%201.pdf)
+![Consigna original][https://www.campusvirtual.frba.utn.edu.ar/especialidad/pluginfile.php/279745/mod_resource/content/1/COMPILACION%20PARTE%201.pdf]
 
 <hr>
 

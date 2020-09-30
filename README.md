@@ -38,12 +38,12 @@ En el caso de `<letra>` y `<digito>` optamos por una abreviación para simplific
 	|	<caracterPuntuacion>
 
 <identificador> :=
-	<letra> {<letra o digito>}
+	<letra> {<letraODigito>}
 
 <constante> :=
 	<digito> {digito>}
 
-<letra o digito> :=
+<letraODigito> :=
 	<letra> | <digito>
 
 <letra> := una de

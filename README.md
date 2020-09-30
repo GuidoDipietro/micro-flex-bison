@@ -38,10 +38,12 @@ En el caso de `<letra>` y `<digito>` optamos por una abreviación para simplific
 	|	<caracterPuntuacion>
 
 <identificador> :=
-	<letra> {<letraODigito>}
+		<letra>
+	|	<identificador> <letraODigito>
 
 <constante> :=
-	<digito> {digito>}
+		<digito>
+	|	<constante> <digito>
 
 <letraODigito> :=
 	<letra> | <digito>
@@ -52,42 +54,54 @@ En el caso de `<letra>` y `<digito>` optamos por una abreviación para simplific
 <digito> := uno de
 	0-9
 
-<palabraReservada> :=
-	"inicio" | "fin" | "leer" | "escribir"
+<inicio> := "inicio"
+<fin> := "fin"
+<leer> := "leer"
+<escribir> := "escribir"
 
 <operadorAditivo> :=
 	'+' | '-'
 
 <asignacion> :=
-	':='
+	":="
 
-<caracterPuntuacion> :=
-	'(' | ')' | ',' | ';'
+<parenizq> := '('
+<parender> := ')'
+<coma> := ','
+<pc> := ';'
 ```
 
 ### Gramática sintáctica
 
 ```ebnf
 <programa> :=
-	"inicio" <listaSentencias> "fin"
+	<inicio> <listaSentencias> <fin>
 
 <listaSentencias> :=
-	<sentencia> {<sentencia>}
+		<sentencia>
+	|	<listaSentencias> <sentencia>
 
 <sentencia> :=
-		<identificador> ':=' <expresion> ';'
-	| 	"leer" ( <listaIdentificadores> ) ';'
-	|	"escribir" ( <listaExpresiones> ) ';'
+		<identificador> <asignacion> <expresion> <pc>
+	| 	<leer> <parenizq> <listaIdentificadores> <parender> <pc>
+	|	<escribir> <parenizq> <listaExpresiones> <parender> <pc>
 
 <listaIdentificadores> :=
-	<identificador> {',' <identificador>}
+		<identificador>
+	|	<listaIdentificadores> <coma> <identificador>
 
 <listaExpresiones> :=
-	<expresion> {',' <expresion>}
+		<expresion>
+	|	<listaExpresiones> <coma> <expresion>
 
-<expresiom> :=
-	<primaria> {<operadorAditivo> <primaria>}
+<expresion> :=
+		<primaria>
+	|	<expresion> <operadorAditivo> <expresion>
 
 <primaria> :=
-	<identificador> | <constante> | ( <expresion> )
+		<identificador>
+	|	<constante>
+	|	<parenizq> <expresion> <parender>
 ```
+
+## Tokens

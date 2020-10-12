@@ -21,8 +21,6 @@ extern int yylexerrs;
 }
 %left '+' '-' ',' 
 %right ASIGNACION
-%start objetivo
-
 
 %% 
 
@@ -30,7 +28,7 @@ objetivo:
 	programa FDT;
 
 programa:
-	INICIO listaSentencias FIN 	{if (yynerrs || yylexerrs) YYABORT;}; 
+	INICIO listaSentencias FIN; 
 
 listaSentencias:
 	sentencia 
@@ -80,7 +78,7 @@ printf("\n --------------------------------------------");
 		case 2: printf("\n\n No hay memoria suficiente");
 		break;
 	}
-	printf("\n\n Errores sintacticos:  %i\t  Errores lexicos:  %i\n", yynerrs, yylexerrs);
+	printf("\n\n Errores sintacticos:  %i\n  Errores lexicos:  %i\n", yynerrs, yylexerrs);
 	printf("\n ------------------------------------------- \n\n");
 	return 0;
 }

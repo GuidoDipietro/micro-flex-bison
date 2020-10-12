@@ -1,8 +1,14 @@
 %{
 int yylex();
+
 #include <stdio.h>
 #include <stdlib.h>
+
 void yyerror(char *s);
+
+
+extern int yynerrs;
+extern int yylexerrs;
 
 %}
 
@@ -24,7 +30,7 @@ objetivo:
 	programa FDT;
 
 programa:
-	INICIO listaSentencias FIN; 
+	INICIO listaSentencias FIN 	{if (yynerrs || yylexerrs) YYABORT;}; 
 
 listaSentencias:
 	sentencia 
@@ -45,7 +51,7 @@ listaExpresiones:
 
 expresion:
 	primaria 
-    | expresion operadorAditivo primaria;
+	| expresion operadorAditivo primaria;
 
 primaria:
 	ID
@@ -57,6 +63,8 @@ operadorAditivo:
 	| '-';
 
 %%
+
+int yylexerrs = 0;
 
 void yyerror(char *s) {
 	fprintf(stderr, "%s\n", s);
@@ -72,7 +80,7 @@ printf("\n --------------------------------------------");
 		case 2: printf("\n\n No hay memoria suficiente");
 		break;
 	}
-
+	printf("\n\n Errores sintacticos:  %i\t - Errores lexicos:  %i\n", yynerrs, yylexerrs);
 	printf("\n ------------------------------------------- \n\n");
 	return 0;
 }

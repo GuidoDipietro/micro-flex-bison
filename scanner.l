@@ -6,6 +6,8 @@
 void yyerror(char *s);
 int yylex();
 
+char buffer[32];
+int yylexerrs;
 %}
 
 digito                  [0-9]
@@ -29,7 +31,7 @@ constante               ({digito})+
 ","                     return ',';
 ":="                    return ASIGNACION;
 [ \t\n]                 ;
-.                       {ECHO; yyerror("Caracter Invalido");}
+.                       {yylexerrs++; sprintf(buffer,"Error Lexico: %s es un caracter invalido", yytext); yyerror(buffer);}
 
 %%
 

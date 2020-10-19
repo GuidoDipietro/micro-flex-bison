@@ -12,7 +12,7 @@ extern int yylexerrs;
 
 %}
 
-%token INICIO FIN LEER ESCRIBIR PUNTOYCOMA FDT
+%token INICIO FIN LEER ESCRIBIR PUNTOYCOMA
 %token <id> ID
 %token <cte> CONSTANTE
 %union{
@@ -25,10 +25,10 @@ extern int yylexerrs;
 %% 
 
 objetivo: 
-	programa FDT;
+	programa;
 
 programa:
-	INICIO listaSentencias FIN; 
+	INICIO listaSentencias FIN;
 
 listaSentencias:
 	sentencia 
@@ -69,7 +69,7 @@ void yyerror(char *s) {
 }
 
 int main() {
-printf("\n --------------------------------------------");
+	//printf("\n --------------------------------------------");
 	switch (yyparse()){
 		case 0: printf("\n\n Proceso de compilacion termino exitosamente");
 		break;

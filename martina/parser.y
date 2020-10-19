@@ -12,7 +12,7 @@ extern int yylexerrs;
 
 %}
 
-%token INICIO FIN LEER ESCRIBIR PUNTOYCOMA
+%token FDT INICIO FIN LEER ESCRIBIR PUNTOYCOMA
 %token <id> ID
 %token <cte> CONSTANTE
 %union{
@@ -23,9 +23,6 @@ extern int yylexerrs;
 %right ASIGNACION
 
 %% 
-
-objetivo: 
-	programa;
 
 programa:
 	INICIO listaSentencias FIN;

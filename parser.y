@@ -40,7 +40,7 @@ void MostrarValorID(char* s); // para probar
 %%
 
 programa:
-       INICIO listaSentencias FIN
+       INICIO listaSentencias FIN                       {if (yynerrs || yylexerrs) YYABORT;}
 ; 
 
 listaSentencias:

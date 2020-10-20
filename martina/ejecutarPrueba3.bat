@@ -1,1 +1,0 @@
-micro_martina.exe < prueba3.txt

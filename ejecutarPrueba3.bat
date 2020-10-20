@@ -1,0 +1,1 @@
+micro.exe < prueba3.txt

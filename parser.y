@@ -8,6 +8,7 @@ void yyerror(char *s);
 
 extern int yynerrs;
 extern int yylexerrs;
+extern FILE* yyin;
 %}
 
 %token FDT INICIO FIN LEER ESCRIBIR PUNTOYCOMA
@@ -63,7 +64,19 @@ void yyerror(char *s) {
 	fprintf(stderr, "%s\n", s);
 }
 
-int main() {
+int main(int argc, char** argv) {
+	
+	// Argumentos
+	if (argc > 2){
+		printf("Numero incorrecto de argumentos.");
+		return EXIT_FAILURE;
+	}
+	else if (argc == 2)
+		yyin = fopen(argv[1], "r");
+	else
+		yyin = stdin;
+
+	// Parser
 	switch (yyparse()){
 		case 0: printf("\n\nProceso de compilacion termino exitosamente");
 		break;

@@ -53,24 +53,21 @@ sentencia 	:	ID ASIGNACION expresion PUNTOYCOMA			{ EscribirATabla($1, $3); }
 ;
 
 listaIdentificadores	:	ID 
-						| 	listaIdentificadores ',' ID
+				| listaIdentificadores ',' ID
 ;
 
 listaExpresiones	:	expresion 
-					| 	listaExpresiones ','  expresion
+				| listaExpresiones ','  expresion
 ;
 
-expresion 	:	primaria 
-			| 	expresion operadorAditivo primaria
-;
+expresion		:	primaria					{$$ = $1;}
+	 			| expresion '+' primaria			{$$ = $1 + $3;}
+				| expresion '-' primaria			{$$ = $1 - $3;}							
+;	
 
 primaria 	:	ID 						{ $$ = ValorSimbolo($1); }
 			| 	CONSTANTE
 			| 	'(' expresion ')'		{ $$ = $2 }
-;
-
-operadorAditivo 	: 	'+'
-					| 	'-'
 ;
 
 %%

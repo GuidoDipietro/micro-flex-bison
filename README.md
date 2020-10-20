@@ -112,8 +112,13 @@ En el caso de `<letra>` y `<digito>` optamos por una abreviación para simplific
 
 Entendemos que las funciones `leer` y `escribir` funcionan de la siguiente manera:
 
-- `leer(lista de IDs)` imprime en pantalla el valor de cada identificador (inventado, en el documento no lo dice)
-- `escribir()` ???????????
+- `leer(lista de IDs)` asigna los valores dados a los IDs proporcionados. Por ejemplo:  
+```
+leer(a,b,c);
+// se ingresa "14 27 49"
+// ahora a=14, b=27, c=49
+```
+- `escribir(lista de sentencias)` se muestra en pantalla el valor de las sentencias indicadas.
 
 ## Tokens
 

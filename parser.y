@@ -52,6 +52,7 @@ sentencia:
        ID ASIGNACION expresion PUNTOYCOMA                 {EscribirATabla($1, $3);}         
     |  LEER '(' listaIdentificadores ')' PUNTOYCOMA
     |  ESCRIBIR '(' listaExpresiones ')' PUNTOYCOMA
+    | ESCRIBIR ID               { MostrarValorID($2); } /* esto desp se tiene que ir */
 ;
 
 listaIdentificadores:

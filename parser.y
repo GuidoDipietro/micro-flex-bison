@@ -37,37 +37,43 @@ void MostrarValorID(char* s); // para probar
 
 %type <cte> expresion primaria
 
-%% 
+%%
 
-programa    : INICIO listaSentencias FIN
+programa:
+       INICIO listaSentencias FIN
+; 
+
+listaSentencias:
+       sentencia 
+    |  listaSentencias sentencia
 ;
 
-listaSentencias : sentencia 
-                | listaSentencias sentencia
+sentencia:
+       ID ASIGNACION expresion PUNTOYCOMA                 {EscribirATabla($1, $3);}         
+    |  LEER '(' listaIdentificadores ')' PUNTOYCOMA
+    |  ESCRIBIR '(' listaExpresiones ')' PUNTOYCOMA
 ;
 
-sentencia   : ID ASIGNACION expresion PUNTOYCOMA          { EscribirATabla($1, $3); }
-            | LEER '(' listaIdentificadores ')' PUNTOYCOMA
-            | ESCRIBIR '(' listaExpresiones ')' PUNTOYCOMA
-            | ESCRIBIR ID               { MostrarValorID($2); } /* esto desp se tiene que ir */
+listaIdentificadores:
+       ID
+    |  listaIdentificadores ',' ID
 ;
 
-listaIdentificadores    : ID 
-                        | listaIdentificadores ',' ID
+listaExpresiones:
+       expresion 
+    |  listaExpresiones ',' expresion
 ;
 
-listaExpresiones    : expresion 
-                    | listaExpresiones ',' expresion
-;
+expresion:
+       primaria                         {$$ = $1;}
+    |  expresion '+' primaria           {$$ = $1 + $3;}
+    |  expresion '-' primaria           {$$ = $1 - $3;}                         
+;               
 
-expresion   : primaria                          {$$ = $1;}
-            | expresion '+' primaria            {$$ = $1 + $3;}
-            | expresion '-' primaria            {$$ = $1 - $3;}
-;   
-
-primaria    : ID                      { $$ = ValorSimbolo($1); }
-            | CONSTANTE
-            | '(' expresion ')'       { $$ = $2 }
+primaria:
+       ID                           {$$ = ValorSimbolo($1);}
+    |  CONSTANTE                    {$$ = $1;}
+    |  '(' expresion ')'            {$$ = $2;}
 ;
 
 %%

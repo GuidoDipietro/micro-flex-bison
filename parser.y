@@ -13,8 +13,8 @@ extern FILE* yyin;
 
 /* Tabla de simbolos */
 typedef struct {
-	char id[32]; // los IDs tienen hasta 32 caracteres
-	int val;
+    char id[32]; // los IDs tienen hasta 32 caracteres
+    int val;
 } SIMBOLO;
 # define TAMAN_TS 100
 SIMBOLO TS[TAMAN_TS];
@@ -29,8 +29,8 @@ void MostrarValorID(char* s); // para probar
 %token <id> ID
 %token <cte> CONSTANTE
 %union {
-	char* id;
-	int cte;
+    char* id;
+    int cte;
 }
 %left '+' '-' ',' 
 %right ASIGNACION
@@ -39,35 +39,35 @@ void MostrarValorID(char* s); // para probar
 
 %% 
 
-programa	:	INICIO listaSentencias FIN
+programa    : INICIO listaSentencias FIN
 ;
 
-listaSentencias	:	sentencia 
-				| 	listaSentencias sentencia
+listaSentencias : sentencia 
+                | listaSentencias sentencia
 ;
 
-sentencia 	:	ID ASIGNACION expresion PUNTOYCOMA			{ EscribirATabla($1, $3); }
-			| LEER '(' listaIdentificadores ')' PUNTOYCOMA
-			| ESCRIBIR '(' listaExpresiones ')' PUNTOYCOMA
-			| ESCRIBIR ID   			{ MostrarValorID($2); } /* esto desp se tiene que ir */
+sentencia   : ID ASIGNACION expresion PUNTOYCOMA          { EscribirATabla($1, $3); }
+            | LEER '(' listaIdentificadores ')' PUNTOYCOMA
+            | ESCRIBIR '(' listaExpresiones ')' PUNTOYCOMA
+            | ESCRIBIR ID               { MostrarValorID($2); } /* esto desp se tiene que ir */
 ;
 
-listaIdentificadores	:	ID 
-				| listaIdentificadores ',' ID
+listaIdentificadores    : ID 
+                        | listaIdentificadores ',' ID
 ;
 
-listaExpresiones	:	expresion 
-				| listaExpresiones ','  expresion
+listaExpresiones    : expresion 
+                    | listaExpresiones ',' expresion
 ;
 
-expresion		:	primaria					{$$ = $1;}
-	 			| expresion '+' primaria			{$$ = $1 + $3;}
-				| expresion '-' primaria			{$$ = $1 - $3;}							
-;	
+expresion   : primaria                          {$$ = $1;}
+            | expresion '+' primaria            {$$ = $1 + $3;}
+            | expresion '-' primaria            {$$ = $1 - $3;}
+;   
 
-primaria 	:	ID 						{ $$ = ValorSimbolo($1); }
-			| 	CONSTANTE
-			| 	'(' expresion ')'		{ $$ = $2 }
+primaria    : ID                      { $$ = ValorSimbolo($1); }
+            | CONSTANTE
+            | '(' expresion ')'       { $$ = $2 }
 ;
 
 %%
@@ -75,85 +75,85 @@ primaria 	:	ID 						{ $$ = ValorSimbolo($1); }
 int yylexerrs = 0;
 
 void yyerror(char *s) {
-	fprintf(stderr, "%s\n", s);
+    fprintf(stderr, "%s\n", s);
 }
 
 ////// COSAS DE LA TS //////
 
 // Esto es solamente para probar la TS
 void MostrarValorID(char* s){
-	int valor = ValorSimbolo(s);
-	if (valor == -1)
-		printf("No existe tal identificador!");
-	else
-		printf("%d\n\n", valor);
+    int valor = ValorSimbolo(s);
+    if (valor == -1)
+        printf("No existe tal identificador!");
+    else
+        printf("%d\n\n", valor);
 }
 
 // Retorna valor de un ID si está en la TS, de lo contrario -1
 int ValorSimbolo(char* s){
-	int ind = IndiceTabla(s);
-	if (ind<0) return -1;
-	return TS[ind].val;
+    int ind = IndiceTabla(s);
+    if (ind<0) return -1;
+    return TS[ind].val;
 }
 
 // Retorna el índice si está, o -1 si no
 int IndiceTabla(char* s){
-	int i=0;
-	for (i; i<TAMAN_TS; i++)
-		if (!strcmp(TS[i].id, s)) return i;
-	return -1;
+    int i=0;
+    for (i; i<TAMAN_TS; i++)
+        if (!strcmp(TS[i].id, s)) return i;
+    return -1;
 }
 
 // Si ya está en la tabla lo actualiza, si no, crea una entrada
 void EscribirATabla(char* s, int v){
-	int ind = IndiceTabla(s);
-	// No está en la TS
-	if (ind == -1){
-		int i=0;
-		for (i; (i<TAMAN_TS && TS[i].val != -1); i++) // busca la primera entrada vacía
-			;
-		if (i > TAMAN_TS){
-			printf("No hay mas espacio en la TS.");
-			return;
-		}
-		// Asigna ID y su valor
-		TS[i].val = v;
-		sprintf(TS[i].id, s);
-	}
-	// Sí está en la TS
-	else
-		TS[ind].val = v;
+    int ind = IndiceTabla(s);
+    // No está en la TS
+    if (ind == -1){
+        int i=0;
+        for (i; (i<TAMAN_TS && TS[i].val != -1); i++) // busca la primera entrada vacía
+            ;
+        if (i > TAMAN_TS){
+            printf("No hay mas espacio en la TS.");
+            return;
+        }
+        // Asigna ID y su valor
+        TS[i].val = v;
+        sprintf(TS[i].id, s);
+    }
+    // Sí está en la TS
+    else
+        TS[ind].val = v;
 }
 
 ////// MAIN //////
 
 int main(int argc, char** argv) {
-	
-	// Argumentos
-	if (argc > 2){
-		printf("Numero incorrecto de argumentos.");
-		return EXIT_FAILURE;
-	}
-	else if (argc == 2)
-		yyin = fopen(argv[1], "r");
-	else
-		yyin = stdin;
+    
+    // Argumentos
+    if (argc > 2){
+        printf("Numero incorrecto de argumentos.");
+        return EXIT_FAILURE;
+    }
+    else if (argc == 2)
+        yyin = fopen(argv[1], "r");
+    else
+        yyin = stdin;
 
-	// Inicializar TS
-	for(int i=0; i<TAMAN_TS; (TS[i].val = -1, i++)) // valores inadmitidos en Micro
-		;
+    // Inicializar TS
+    for(int i=0; i<TAMAN_TS; (TS[i].val = -1, i++)) // valores inadmitidos en Micro
+        ;
 
-	// Parser
-	switch (yyparse()){
-		case 0: printf("\n\nProceso de compilacion termino exitosamente");
-		break;
-		case 1: printf("\n\nErrores de compilacion");
-		break;
-		case 2: printf("\n\nNo hay memoria suficiente");
-		break;
-	}
-	printf("\n\nErrores sintacticos: %i\tErrores lexicos: %i\n", yynerrs, yylexerrs);
+    // Parser
+    switch (yyparse()){
+        case 0: printf("\n\nProceso de compilacion termino exitosamente");
+        break;
+        case 1: printf("\n\nErrores de compilacion");
+        break;
+        case 2: printf("\n\nNo hay memoria suficiente");
+        break;
+    }
+    printf("\n\nErrores sintacticos: %i\tErrores lexicos: %i\n", yynerrs, yylexerrs);
 
-	return 0;
+    return 0;
 
 }

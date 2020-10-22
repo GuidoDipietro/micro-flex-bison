@@ -91,7 +91,7 @@ void yyerror(char *s) {
 void MostrarValorID(char* s){
     int valor = ValorSimbolo(s);
     if (valor == -1)
-        printf("No existe tal identificador!");
+        printf("No existe tal identificador!\n\n");
     else
         printf("%d\n\n", valor);
 }

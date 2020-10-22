@@ -23,6 +23,7 @@ int IndiceTabla(char* s);
 void EscribirATabla(char* s, int v);
 void MostrarValorID(char* s); // para probar
 
+void VerTabla();
 %}
 
 %token FDT INICIO FIN LEER ESCRIBIR PUNTOYCOMA
@@ -40,7 +41,7 @@ void MostrarValorID(char* s); // para probar
 %%
 
 programa:
-       INICIO listaSentencias FIN                       {if (yynerrs || yylexerrs) YYABORT;}
+       INICIO listaSentencias FIN                       {if (yynerrs || yylexerrs) YYABORT; return -1}
 ; 
 
 listaSentencias:
@@ -50,9 +51,11 @@ listaSentencias:
 
 sentencia:
        ID ASIGNACION expresion PUNTOYCOMA                 {EscribirATabla($1, $3);}         
-    |  LEER '(' listaIdentificadores ')' PUNTOYCOMA
+    |  LEER '(' listaIdentificadores ')' PUNTOYCOMA     
     |  ESCRIBIR '(' listaExpresiones ')' PUNTOYCOMA
-    | ESCRIBIR ID               { MostrarValorID($2); } /* esto desp se tiene que ir */
+    |  ESCRIBIR ID PUNTOYCOMA                                { MostrarValorID($2); } /* esto desp se tiene que ir */
+    |  LEER LEER {VerTabla();}
+
 ;
 
 listaIdentificadores:
@@ -61,8 +64,8 @@ listaIdentificadores:
 ;
 
 listaExpresiones:
-       expresion 
-    |  listaExpresiones ',' expresion
+       expresion                                 {printf("%d\n", $1);}
+    |  listaExpresiones ',' expresion            {printf("%d\n", $3);}
 ;
 
 expresion:
@@ -91,7 +94,7 @@ void yyerror(char *s) {
 void MostrarValorID(char* s){
     int valor = ValorSimbolo(s);
     if (valor == -1)
-        printf("No existe tal identificador!\n\n");
+        printf("No existe tal identificador!");
     else
         printf("%d\n\n", valor);
 }
@@ -130,6 +133,12 @@ void EscribirATabla(char* s, int v){
     // Sí está en la TS
     else
         TS[ind].val = v;
+}
+
+void VerTabla(char* s){
+    for(int i = 0; i<TAMAN_TS && TS[i].val != -1; i++){
+        printf("%d\n", TS[i].val);
+    }
 }
 
 ////// MAIN //////

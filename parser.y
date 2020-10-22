@@ -23,7 +23,6 @@ int IndiceTabla(char* s);
 void EscribirATabla(char* s, int v);
 void MostrarValorID(char* s); // para probar
 
-void VerTabla();
 %}
 
 %token FDT INICIO FIN LEER ESCRIBIR PUNTOYCOMA
@@ -54,7 +53,6 @@ sentencia:
     |  LEER '(' listaIdentificadores ')' PUNTOYCOMA     
     |  ESCRIBIR '(' listaExpresiones ')' PUNTOYCOMA
     |  ESCRIBIR ID PUNTOYCOMA                                { MostrarValorID($2); } /* esto desp se tiene que ir */
-    |  LEER LEER {VerTabla();}
 
 ;
 
@@ -133,12 +131,6 @@ void EscribirATabla(char* s, int v){
     // Sí está en la TS
     else
         TS[ind].val = v;
-}
-
-void VerTabla(char* s){
-    for(int i = 0; i<TAMAN_TS && TS[i].val != -1; i++){
-        printf("%d\n", TS[i].val);
-    }
 }
 
 ////// MAIN //////

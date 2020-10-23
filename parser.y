@@ -39,7 +39,7 @@ void cargarPrueba(char* p1, char* p2, char* p3); // Pruebas Pablo
 %left '+' '-' ',' '*'
 %right ASIGNACION
 
-%type <cte> expresion primaria
+%type <cte> expresion primaria termino
 
 %%
 
@@ -69,11 +69,15 @@ listaExpresiones:
 ;
 
 expresion:
-       primaria                         {$$ = $1;}
-    |  expresion '+' primaria           {$$ = $1 + $3;}
-    |  expresion '-' primaria           {$$ = $1 - $3;}   
-    |  expresion '*' expresion          {$$ = $1 * $3;}                      
-;               
+       termino                          {$$ = $1;}
+    |  expresion '+' termino            {$$ = $1 + $3;}
+    |  expresion '-' termino            {$$ = $1 - $3;}                    
+;
+
+termino:
+        primaria
+    |   primaria '*' primaria           {$$ = $1 * $3;}
+;
 
 primaria:
        ID                               {$$ = ValorSimbolo($1);}

@@ -163,20 +163,20 @@ El lenguaje Micro cuenta con 16 Tokens:
 |--------------------------|------------|
 | `[0-9]+`                 | CONSTANTE  |
 | `[a-zA-Z][a-zA-Z0-9]*`   | ID         |
-| `"inicio"`               | INICIO     |
-| `"fin"`                  | FIN        |
-| `"leer"`                 | LEER       |
-| `"escribir"`             | ESCRIBIR   |
-| `"imprimir"`             | IMPRIMIR   |
-| `"veces"`                | VECES      |
-| `":="`                   | ASIGNACION |
+| `inicio`                 | INICIO     |
+| `fin`                    | FIN        |
+| `leer`                   | LEER       |
+| `escribir`               | ESCRIBIR   |
+| `imprimir`               | IMPRIMIR   |
+| `veces`                  | VECES      |
+| `:=`                     | ASIGNACION |
 | `\(`                     | '('        |
 | `\)`                     | ')'        |
 | `,`                      | ','        |
 | `;`                      | PUNTOYCOMA |
 | `\+`                     | '+'        |
 | `-`                      | '-'        |
-| `*`                      | '\*'       |
+| `\*`                     | '\*'       |
 
 ## Tabla de símbolos
 

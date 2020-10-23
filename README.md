@@ -19,6 +19,22 @@
 - Cada sentencia termina con un "punto y coma" (`;`).
 - El cuerpo de un programa está delimitado por `inicio` y `fin`. - `inicio`, `fin`, `leer` y `escribir` son palabras reservadas y deben escribirse en minúscula.
 
+#### Agregados personales
+Implementamos además el operador `*` que funciona como la multiplicación corriente, y un bucle `escribirVeces` que equivale a un `for` que llama a un `printf` una cantidad de veces indicada.  
+Ejemplos de uso:
+
+```C
+cuenta := 1+4*2+7*(((4)))+9;
+escribir(cuenta);
+46
+
+n := 3;
+escribirVeces(n, cuenta);
+46
+46
+46
+```
+
 ## Gramática
 
 La gramática léxica y sintáctica del lenguaje Micro es muy simple, a continuación su definición en BNF.  
@@ -65,6 +81,8 @@ En el caso de `<letra>` y `<digito>` optamos por una abreviación para simplific
 <operadorAditivo> :=
 	'+' | '-'
 
+<mul> := '*'
+
 <asignacion> :=
 	":="
 
@@ -90,7 +108,7 @@ En el caso de `<letra>` y `<digito>` optamos por una abreviación para simplific
 <sentencia> :=
 		<identificador> <asignacion> <expresion> <pc>
 	| 	<leer> <parenizq> <listaIdentificadores> <parender> <pc>
-	|	<escribir> <parenizq> <listaExpresiones> <parender> <pc> //esto no tiene mucho sentido
+	|	<escribir> <parenizq> <listaExpresiones> <parender> <pc>
 
 <listaIdentificadores> :=
 		<identificador>
@@ -101,8 +119,12 @@ En el caso de `<letra>` y `<digito>` optamos por una abreviación para simplific
 	|	<listaExpresiones> <coma> <expresion>
 
 <expresion> :=
+		<termino>
+	|	<expresion> <operadorAditivo> <termino>
+
+<termino> :=
 		<primaria>
-	|	<expresion> <operadorAditivo> <expresion>
+	|	<primaria> <mul> <primaria>
 
 <primaria> :=
 		<identificador>
@@ -110,19 +132,28 @@ En el caso de `<letra>` y `<digito>` optamos por una abreviación para simplific
 	|	<parenizq> <expresion> <parender>
 ```
 
-Entendemos que las funciones `leer` y `escribir` funcionan de la siguiente manera:
+Las funciones `leer` y `escribir` funcionan de la siguiente manera:
 
 - `leer(lista de IDs)` asigna los valores dados a los IDs proporcionados. Por ejemplo:  
-```
+<!-- CAMBIAR -->
+```C
 leer(a,b,c);
 // se ingresa "14 27 49"
-// ahora a=14, b=27, c=49
+// ahora a==14, b==27, c==49
 ```
-- `escribir(lista de sentencias)` se muestra en pantalla el valor de las sentencias indicadas.
+- `escribir(lista de sentencias)` se muestra en pantalla el valor de las sentencias indicadas. Ejemplo:
+```C
+a := 14;
+be := 27;
+escribir (a, be, 1+a+be*2);
+14
+27
+69
+```
 
 ## Tokens
 
-El lenguaje Micro cuenta con 13 Tokens:
+El lenguaje Micro cuenta con 14 Tokens:
 
 | ER                       | Token      |
 |--------------------------|------------|
@@ -133,19 +164,20 @@ El lenguaje Micro cuenta con 13 Tokens:
 | `"leer"`                 | LEER       |
 | `"escribir"`             | ESCRIBIR   |
 | `":="`                   | ASIGNACION |
-| `\(`                     | PARENIZQ   |
-| `\)`                     | PARENDER   |
-| `,`                      | COMA       |
-| `;`                      | PC         |
-| `\+`                     | MAS        |
-| `-`                      | MENOS      |
+| `\(`                     | '('        |
+| `\)`                     | ')'        |
+| `,`                      | ','        |
+| `;`                      | PUNTOYCOMA |
+| `\+`                     | '+'        |
+| `-`                      | '-'        |
+| `*`                      | '\*'       |
 
 ## Tabla de símbolos
 
 En el caso de Micro, la TS contendrá los identificadores.  
-Cada entrada tendrá como único atributo su valor asignado en caso de tenerlo, o `NULL` en caso contrario.
+Cada entrada tendrá como único atributo su valor asignado en caso de tenerlo, o `-1` en caso contrario.
 
-## Compilar
+## Compilar y ejecutar
 
 Doble click en el batchfile `compilar.bat` o ejecutar esto:
 
@@ -155,4 +187,4 @@ bison -yd micro.y
 gcc lex.yy.c y.tab.c -o micro
 ```
 
-Los archivos `lex.yy.c, y.tab.c, y.tab.h` que están subidos son los de la última compilación hecha.
+Se puede ejecutar `micro` para poder ingresar texto en consola que será evaluado por el compilador, o bien `micro archivo.txt` para que el compilador evalúe el contenido del archivo `archivo.txt` indicado.

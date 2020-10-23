@@ -28,6 +28,7 @@ constante               ({digito})+
 ";"                     return  PUNTOYCOMA;
 "+"                     return '+';
 "-"                     return '-';
+"*"                     return '*';
 ","                     return ',';
 ":="                    return ASIGNACION;
 [ \t\n]                 ;

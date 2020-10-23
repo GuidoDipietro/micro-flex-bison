@@ -11,6 +11,8 @@ extern int yynerrs;
 extern int yylexerrs;
 extern FILE* yyin;
 
+char* prueba[3]; 
+
 /* Tabla de simbolos */
 typedef struct {
     char id[32]; // los IDs tienen hasta 32 caracteres
@@ -23,6 +25,8 @@ int IndiceTabla(char* s);
 void EscribirATabla(char* s, int v);
 void MostrarValorID(char* s); // para probar
 
+void cargarPrueba(char* p1, char* p2, char* p3);
+
 %}
 
 %token FDT INICIO FIN LEER ESCRIBIR PUNTOYCOMA
@@ -32,7 +36,7 @@ void MostrarValorID(char* s); // para probar
     char* id;
     int cte;
 }
-%left '+' '-' ',' 
+%left '+' '-' ',' '*'
 %right ASIGNACION
 
 %type <cte> expresion primaria
@@ -57,7 +61,7 @@ sentencia:
 ;
 
 listaIdentificadores:
-       ID
+       ID                                                                                          
     |  listaIdentificadores ',' ID
 ;
 
@@ -69,7 +73,8 @@ listaExpresiones:
 expresion:
        primaria                         {$$ = $1;}
     |  expresion '+' primaria           {$$ = $1 + $3;}
-    |  expresion '-' primaria           {$$ = $1 - $3;}                         
+    |  expresion '-' primaria           {$$ = $1 - $3;}   
+    |  expresion '*' expresion          {$$ = $1 * $3;}                      
 ;               
 
 primaria:
@@ -131,6 +136,12 @@ void EscribirATabla(char* s, int v){
     // Sí está en la TS
     else
         TS[ind].val = v;
+}
+
+void cargarPrueba(char* p1, char* p2, char* p3){
+    prueba[0] = p1;
+    prueba[1] = p2;
+    prueba[2] = p3;
 }
 
 ////// MAIN //////

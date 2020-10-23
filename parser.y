@@ -29,7 +29,7 @@ void cargarPrueba(char* p1, char* p2, char* p3); // Pruebas Pablo
 
 %}
 
-%token INICIO FIN LEER ESCRIBIR PUNTOYCOMA
+%token INICIO FIN LEER ESCRIBIR PUNTOYCOMA IMPRIMIR VECES
 %token <id> ID
 %token <cte> CONSTANTE
 %union {
@@ -56,6 +56,7 @@ sentencia:
        ID ASIGNACION expresion PUNTOYCOMA               {EscribirATabla($1, $3);}         
     |  LEER '(' listaIdentificadores ')' PUNTOYCOMA     
     |  ESCRIBIR '(' listaExpresiones ')' PUNTOYCOMA
+    |  IMPRIMIR ID CONSTANTE VECES PUNTOYCOMA {for(int i=0; i<$3;i++) printf("%s\n",$2); printf("\n");}
 ;
 
 listaIdentificadores:

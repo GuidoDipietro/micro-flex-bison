@@ -56,7 +56,7 @@ sentencia:
        ID ASIGNACION expresion PUNTOYCOMA               {EscribirATabla($1, $3);}         
     |  LEER '(' listaIdentificadores ')' PUNTOYCOMA     
     |  ESCRIBIR '(' listaExpresiones ')' PUNTOYCOMA
-    |  IMPRIMIR ID CONSTANTE VECES PUNTOYCOMA {for(int i=0; i<$3;i++) printf("%s\n",$2); printf("\n");}
+    |  IMPRIMIR primaria primaria VECES PUNTOYCOMA {for(int i=0; i<$3; i++) printf("%d\n",$2); printf("\n");}
 ;
 
 listaIdentificadores:

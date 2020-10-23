@@ -24,7 +24,6 @@ constante               ({digito})+
 "imprimir"              return IMPRIMIR;
 "veces"                 return VECES;
 
-
 {identificador}         {yylval.id = strdup(yytext); return ID;} 
 {constante}             {yylval.cte = atoi(yytext); return CONSTANTE;}
 "("                     return '(';

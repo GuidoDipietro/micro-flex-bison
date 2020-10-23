@@ -11,7 +11,7 @@ extern int yynerrs;
 extern int yylexerrs;
 extern FILE* yyin;
 
-char* prueba[3]; 
+char* prueba[3]; // Pruebas Pablo
 
 /* Tabla de simbolos */
 typedef struct {
@@ -23,9 +23,9 @@ SIMBOLO TS[TAMAN_TS];
 int ValorSimbolo(char* s);
 int IndiceTabla(char* s);
 void EscribirATabla(char* s, int v);
-void MostrarValorID(char* s); // para probar
 
-void cargarPrueba(char* p1, char* p2, char* p3);
+void MostrarValorID(char* s); // Pruebas Guido
+void cargarPrueba(char* p1, char* p2, char* p3); // Pruebas Pablo
 
 %}
 
@@ -53,11 +53,9 @@ listaSentencias:
 ;
 
 sentencia:
-       ID ASIGNACION expresion PUNTOYCOMA                 {EscribirATabla($1, $3);}         
+       ID ASIGNACION expresion PUNTOYCOMA               {EscribirATabla($1, $3);}         
     |  LEER '(' listaIdentificadores ')' PUNTOYCOMA     
     |  ESCRIBIR '(' listaExpresiones ')' PUNTOYCOMA
-    |  ESCRIBIR ID PUNTOYCOMA                                { MostrarValorID($2); } /* esto desp se tiene que ir */
-
 ;
 
 listaIdentificadores:
@@ -66,8 +64,8 @@ listaIdentificadores:
 ;
 
 listaExpresiones:
-       expresion                                 {printf("%d\n", $1);}
-    |  listaExpresiones ',' expresion            {printf("%d\n", $3);}
+       expresion                        {printf("%d\n", $1);}
+    |  listaExpresiones ',' expresion   {printf("%d\n", $3);}
 ;
 
 expresion:
@@ -78,9 +76,9 @@ expresion:
 ;               
 
 primaria:
-       ID                           {$$ = ValorSimbolo($1);}
-    |  CONSTANTE                    {$$ = $1;}
-    |  '(' expresion ')'            {$$ = $2;}
+       ID                               {$$ = ValorSimbolo($1);}
+    |  CONSTANTE                        {$$ = $1;}
+    |  '(' expresion ')'                {$$ = $2;}
 ;
 
 %%
@@ -138,6 +136,7 @@ void EscribirATabla(char* s, int v){
         TS[ind].val = v;
 }
 
+// Pruebas Pablo
 void cargarPrueba(char* p1, char* p2, char* p3){
     prueba[0] = p1;
     prueba[1] = p2;

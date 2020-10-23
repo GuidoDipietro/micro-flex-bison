@@ -76,7 +76,7 @@ expresion:
 
 termino:
         primaria
-    |   primaria '*' primaria           {$$ = $1 * $3;}
+    |   termino '*' primaria            {$$ = $1 * $3;}
 ;
 
 primaria:

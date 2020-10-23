@@ -29,7 +29,8 @@ escribir(cuenta);
 46
 
 n := 3;
-escribirVeces(n, cuenta);
+imprimir cuenta n+1 veces;
+46
 46
 46
 46
@@ -37,7 +38,7 @@ escribirVeces(n, cuenta);
 
 ## Gramática
 
-La gramática léxica y sintáctica del lenguaje Micro es muy simple, a continuación su definición en BNF.  
+La gramática léxica y sintáctica del lenguaje Micro (con nuestros agregados) es muy simple, a continuación su definición en BNF.  
 
 Representamos los terminales de un solo símbolo entre comillas simples, y aquellos que sean cadenas, entre comillas dobles.  
 En el caso de `<letra>` y `<digito>` optamos por una abreviación para simplificar la expresión.
@@ -77,6 +78,8 @@ En el caso de `<letra>` y `<digito>` optamos por una abreviación para simplific
 <fin> := "fin"
 <leer> := "leer"
 <escribir> := "escribir"
+<imprimir> := "imprimir"
+<veces> := "veces"
 
 <operadorAditivo> :=
 	'+' | '-'
@@ -109,6 +112,7 @@ En el caso de `<letra>` y `<digito>` optamos por una abreviación para simplific
 		<identificador> <asignacion> <expresion> <pc>
 	| 	<leer> <parenizq> <listaIdentificadores> <parender> <pc>
 	|	<escribir> <parenizq> <listaExpresiones> <parender> <pc>
+	|	<imprimir> <expresion> <expresion> <veces> <pc>
 
 <listaIdentificadores> :=
 		<identificador>
@@ -153,7 +157,7 @@ escribir (a, be, 1+a+be*2);
 
 ## Tokens
 
-El lenguaje Micro cuenta con 14 Tokens:
+El lenguaje Micro cuenta con 16 Tokens:
 
 | ER                       | Token      |
 |--------------------------|------------|
@@ -163,6 +167,8 @@ El lenguaje Micro cuenta con 14 Tokens:
 | `"fin"`                  | FIN        |
 | `"leer"`                 | LEER       |
 | `"escribir"`             | ESCRIBIR   |
+| `"imprimir"`             | IMPRIMIR   |
+| `"veces"`                | VECES      |
 | `":="`                   | ASIGNACION |
 | `\(`                     | '('        |
 | `\)`                     | ')'        |

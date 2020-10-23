@@ -124,7 +124,7 @@ En el caso de `<letra>` y `<digito>` optamos por una abreviación para simplific
 
 <termino> :=
 		<primaria>
-	|	<primaria> <mul> <primaria>
+	|	<termino> <mul> <primaria>
 
 <primaria> :=
 		<identificador>

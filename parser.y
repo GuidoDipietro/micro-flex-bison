@@ -96,18 +96,21 @@ void yyerror(char *s) {
 ////// COSAS DE LA TS //////
 
 // Esto es solamente para probar la TS
-void MostrarValorID(char* s){
-    int valor = ValorSimbolo(s);
-    if (valor == -1)
-        printf("No existe tal identificador!");
-    else
-        printf("%d\n\n", valor);
-}
+// void MostrarValorID(char* s){
+//     int valor = ValorSimbolo(s);
+//     if (valor == -1)
+//         printf("No existe tal identificador!");
+//     else
+//         printf("%d\n\n", valor);
+// }
 
 // Retorna valor de un ID si está en la TS, de lo contrario -1
 int ValorSimbolo(char* s){
     int ind = IndiceTabla(s);
-    if (ind<0) return -1;
+    if (ind<0){
+        printf("Error: No hay valor asignado para '%s'\n",s);
+        exit(EXIT_FAILURE);
+    }
     return TS[ind].val;
 }
 

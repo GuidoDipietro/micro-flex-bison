@@ -29,7 +29,7 @@ void cargarPrueba(char* p1, char* p2, char* p3); // Pruebas Pablo
 
 %}
 
-%token FDT INICIO FIN LEER ESCRIBIR PUNTOYCOMA
+%token INICIO FIN LEER ESCRIBIR PUNTOYCOMA
 %token <id> ID
 %token <cte> CONSTANTE
 %union {
@@ -48,7 +48,7 @@ programa:
 ; 
 
 listaSentencias:
-       sentencia 
+       sentencia
     |  listaSentencias sentencia
 ;
 

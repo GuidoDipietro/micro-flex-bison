@@ -11,7 +11,9 @@ extern int yynerrs;
 extern int yylexerrs;
 extern FILE* yyin;
 
-char* prueba[3]; // Pruebas Pablo
+// Pruebas Pablo
+char prueba[] = ""; 
+int i = 0;
 
 /* Tabla de simbolos */
 typedef struct {
@@ -25,7 +27,10 @@ int IndiceTabla(char* s);
 void EscribirATabla(char* s, int v);
 
 void MostrarValorID(char* s); // Pruebas Guido
-void cargarPrueba(char* p1, char* p2, char* p3); // Pruebas Pablo
+
+// PRUEBAS PABLO
+void cargarEntradas(char* p1);
+// FIN PRUEBAS PABLO
 
 %}
 
@@ -60,8 +65,8 @@ sentencia:
 ;
 
 listaIdentificadores:
-       ID                                                                                          
-    |  listaIdentificadores ',' ID
+       ID                               {cargarEntradas($1);}                                                   
+    |  listaIdentificadores ',' ID      {cargarEntradas($3);}
 ;
 
 listaExpresiones:
@@ -144,15 +149,19 @@ void EscribirATabla(char* s, int v){
         TS[ind].val = v;
 }
 
-// Pruebas Pablo
-void cargarPrueba(char* p1, char* p2, char* p3){
-    prueba[0] = p1;
-    prueba[1] = p2;
-    prueba[2] = p3;
+// PRUEBAS PABLO
+// Va asignando a cada entrada leida el valor y se asigna a la tabla
+void cargarEntradas(char* p1){
+    int valor;
+    printf("Ingresa el valor de %s: ", p1);
+    fscanf(stdin, "%i", &valor);
+
+    if(valor)
+        EscribirATabla(p1, valor);
 }
+// FIN PRUEBAS PABLO
 
 ////// MAIN //////
-
 int main(int argc, char** argv) {
     
     // Argumentos

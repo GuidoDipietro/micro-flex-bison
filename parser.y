@@ -3,29 +3,13 @@ int yylex();
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+#include "TS.h" // Todas las funciones de la TS
 
 void yyerror(char *s);
 
 extern int yynerrs;
 extern int yylexerrs;
 extern FILE* yyin;
-
-/* Tabla de simbolos */
-typedef struct {
-    char id[32]; // los IDs tienen hasta 32 caracteres
-    int val;
-} SIMBOLO;
-# define TAMAN_TS 100
-SIMBOLO TS[TAMAN_TS];
-int ValorSimbolo(char* s);
-int IndiceTabla(char* s);
-void EscribirATabla(char* s, int v);
-
-// Leer(IDs);
-void cargarEntradas(char* p1);
-int numerico(char* s);
 
 %}
 
@@ -94,69 +78,6 @@ void yyerror(char *s) {
     fprintf(stderr, "%s\n", s);
 }
 
-////// COSAS DE LA TS //////
-
-// Retorna valor de un ID si está en la TS, de lo contrario termina el programa
-int ValorSimbolo(char* s){
-    int ind = IndiceTabla(s);
-    if (ind<0){
-        printf("Error: No hay valor asignado para '%s'\n",s);
-        exit(EXIT_FAILURE);
-    }
-    return TS[ind].val;
-}
-
-// Retorna el índice si está, o -1 si no
-int IndiceTabla(char* s){
-    int i=0;
-    for (i; i<TAMAN_TS; i++)
-        if (!strcmp(TS[i].id, s)) return i;
-    return -1;
-}
-
-// Si ya está en la tabla lo actualiza, si no, crea una entrada
-void EscribirATabla(char* s, int v){
-    int ind = IndiceTabla(s);
-    // No está en la TS
-    if (ind == -1){
-        int i=0;
-        for (i; (i<TAMAN_TS && TS[i].val != -1); i++) // busca la primera entrada vacía
-            ;
-        if (i > TAMAN_TS){
-            printf("No hay mas espacio en la TS.");
-            return;
-        }
-        // Asigna ID y su valor
-        TS[i].val = v;
-        sprintf(TS[i].id, s);
-    }
-    // Sí está en la TS
-    else
-        TS[ind].val = v;
-}
-
-// Va asignando a cada entrada leida el valor y se asigna a la tabla
-// Si se asigna un no número, rompe todo
-void cargarEntradas(char* p1){
-    int valor;
-    char temp[15];
-    printf("Ingresa el valor de %s: ", p1);
-    fscanf(stdin, "%s", temp);
-
-    if((valor = numerico(temp)) == -1){
-        printf("Error: El valor '%s' no es un numero", temp);
-        exit(EXIT_FAILURE);
-    }
-    EscribirATabla(p1, valor);
-}
-
-// Retorna el número si la cadena es numérica, o -1 caso contrario
-int numerico(char* s){
-    for(int i=0; i<strlen(s); i++)
-        if (!isdigit(s[i])) return -1;
-    return atoi(s);
-}
-
 ////// MAIN //////
 int main(int argc, char** argv) {
     
@@ -170,9 +91,7 @@ int main(int argc, char** argv) {
     else
         yyin = stdin;
 
-    // Inicializar TS
-    for(int i=0; i<TAMAN_TS; (TS[i].val = -1, i++)) // valores inadmitidos en Micro
-        ;
+    init_TS(); // Inicializa la tabla con todo en -1
 
     // Parser
     switch (yyparse()){
@@ -186,5 +105,4 @@ int main(int argc, char** argv) {
     printf("\n\nErrores sintacticos: %i\tErrores lexicos: %i\n", yynerrs, yylexerrs);
 
     return 0;
-
 }

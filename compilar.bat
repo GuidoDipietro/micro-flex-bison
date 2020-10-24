@@ -1,3 +1,3 @@
 flex scanner.l
 bison -d parser.y
-gcc lex.yy.c parser.tab.c -o micro
+gcc -o micro lex.yy.c parser.tab.c TS.c

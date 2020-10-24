@@ -4,6 +4,7 @@ int yylex();
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 void yyerror(char *s);
 
@@ -22,10 +23,9 @@ int ValorSimbolo(char* s);
 int IndiceTabla(char* s);
 void EscribirATabla(char* s, int v);
 
-void MostrarValorID(char* s); // Pruebas Guido
-
+// Leer(IDs);
 void cargarEntradas(char* p1);
-
+int numerico(char* s);
 
 %}
 
@@ -56,7 +56,7 @@ sentencia:
        ID ASIGNACION expresion PUNTOYCOMA               {EscribirATabla($1, $3);}         
     |  LEER '(' listaIdentificadores ')' PUNTOYCOMA     
     |  ESCRIBIR '(' listaExpresiones ')' PUNTOYCOMA
-    |  IMPRIMIR expresion expresion VECES PUNTOYCOMA {for(int i=0; i<$3; i++) printf("%d\n",$2);}
+    |  IMPRIMIR expresion expresion VECES PUNTOYCOMA    {for(int i=0; i<$3; i++) printf("%d\n",$2);}
 ;
 
 listaIdentificadores:
@@ -96,16 +96,7 @@ void yyerror(char *s) {
 
 ////// COSAS DE LA TS //////
 
-// Esto es solamente para probar la TS
-// void MostrarValorID(char* s){
-//     int valor = ValorSimbolo(s);
-//     if (valor == -1)
-//         printf("No existe tal identificador!");
-//     else
-//         printf("%d\n\n", valor);
-// }
-
-// Retorna valor de un ID si está en la TS, de lo contrario -1
+// Retorna valor de un ID si está en la TS, de lo contrario termina el programa
 int ValorSimbolo(char* s){
     int ind = IndiceTabla(s);
     if (ind<0){
@@ -145,13 +136,25 @@ void EscribirATabla(char* s, int v){
 }
 
 // Va asignando a cada entrada leida el valor y se asigna a la tabla
+// Si se asigna un no número, rompe todo
 void cargarEntradas(char* p1){
     int valor;
+    char temp[15];
     printf("Ingresa el valor de %s: ", p1);
-    fscanf(stdin, "%i", &valor);
+    fscanf(stdin, "%s", temp);
 
-    if(valor)
-        EscribirATabla(p1, valor);
+    if((valor = numerico(temp)) == -1){
+        printf("Error: El valor '%s' no es un numero", temp);
+        exit(EXIT_FAILURE);
+    }
+    EscribirATabla(p1, valor);
+}
+
+// Retorna el número si la cadena es numérica, o -1 caso contrario
+int numerico(char* s){
+    for(int i=0; i<strlen(s); i++)
+        if (!isdigit(s[i])) return -1;
+    return atoi(s);
 }
 
 ////// MAIN //////

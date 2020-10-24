@@ -11,10 +11,6 @@ extern int yynerrs;
 extern int yylexerrs;
 extern FILE* yyin;
 
-// Pruebas Pablo
-char prueba[] = ""; 
-int i = 0;
-
 /* Tabla de simbolos */
 typedef struct {
     char id[32]; // los IDs tienen hasta 32 caracteres
@@ -28,9 +24,8 @@ void EscribirATabla(char* s, int v);
 
 void MostrarValorID(char* s); // Pruebas Guido
 
-// PRUEBAS PABLO
 void cargarEntradas(char* p1);
-// FIN PRUEBAS PABLO
+
 
 %}
 
@@ -149,7 +144,6 @@ void EscribirATabla(char* s, int v){
         TS[ind].val = v;
 }
 
-// PRUEBAS PABLO
 // Va asignando a cada entrada leida el valor y se asigna a la tabla
 void cargarEntradas(char* p1){
     int valor;
@@ -159,7 +153,6 @@ void cargarEntradas(char* p1){
     if(valor)
         EscribirATabla(p1, valor);
 }
-// FIN PRUEBAS PABLO
 
 ////// MAIN //////
 int main(int argc, char** argv) {

@@ -193,4 +193,4 @@ bison -yd micro.y
 gcc lex.yy.c y.tab.c -o micro
 ```
 
-Se puede ejecutar `micro` para poder ingresar texto en consola que será evaluado por el compilador, o bien `micro archivo.txt` para que el compilador evalúe el contenido del archivo `archivo.txt` indicado.
+Se puede ejecutar `micro` para poder ingresar texto en consola que será evaluado por el compilador, o bien `micro archivo.m` para que el compilador evalúe el contenido del archivo `archivo.m` indicado.

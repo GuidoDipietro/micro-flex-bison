@@ -3,6 +3,7 @@ int yylex();
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "TS.h" // Todas las funciones de la TS
 
 void yyerror(char *s);
@@ -86,8 +87,19 @@ int main(int argc, char** argv) {
         printf("Numero incorrecto de argumentos.");
         return EXIT_FAILURE;
     }
-    else if (argc == 2)
-        yyin = fopen(argv[1], "r");
+    else if (argc == 2) {
+        char filename[50];                  // Nombre del archivo
+        sprintf(filename, "%s", argv[1]);   // El 2do argumento
+        int largo = strlen(filename);       // Largo del nombre del archivo
+
+        // Si no termina en .m dar error
+        if (argv[1][largo-1] != 'm' || argv[1][largo-2] != '.'){
+            printf("Extension incorrecta (debe ser .m)");
+            return EXIT_FAILURE;
+        }
+
+        yyin = fopen(filename, "r");
+    }
     else
         yyin = stdin;
 

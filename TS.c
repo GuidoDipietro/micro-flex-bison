@@ -38,8 +38,8 @@ void EscribirATabla(char* s, int v){
         int i=0;
         for (i; (i<TAMAN_TS && TS[i].val != -1); i++); // busca la primera entrada vacía
 
-        if (i > TAMAN_TS){
-            printf("No hay mas espacio en la TS.");
+        if (i > TAMAN_TS-1){
+            printf("No hay mas espacio en la TS.\n");
             return;
         }
         // Asigna ID y su valor
@@ -69,7 +69,7 @@ void cargarEntradas(char* p1){
     fscanf(stdin, "%s", temp);
 
     if((valor = numerico(temp)) == -1){
-        printf("Error: El valor '%s' no es un numero", temp);
+        printf("Error: El valor '%s' no es un numero\n", temp);
         exit(EXIT_FAILURE);
     }
     EscribirATabla(p1, valor);
